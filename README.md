@@ -1,4 +1,4 @@
-pyluks-encryption
+luks-encryption
 =========
 
 This role provides storage encryption using LUKS. It exploits the pyluks python package in order to encrypt and manage external volumes.
