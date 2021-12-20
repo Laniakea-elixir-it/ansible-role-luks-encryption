@@ -1,0 +1,39 @@
+---
+# Node type for api cluster configuration
+# master is executed for single VMs and cluster master node.
+# wn is executed only on cluster WNs
+type_of_node: master
+
+# pyluks installation variables
+pyluks_venv: '/opt/pyluks'
+pyluks_version: 0.0.1
+pip_version: 21.3.1
+
+# fastluks variables
+luks_success_file: '/var/run/fast-luks-encryption.success'
+volume_setup_success_file: '/var/run/fast-luks-volume-setup.success'
+luks_config_path: '/etc/luks'
+luks_config_file: '{{ luks_config_path }}/luks-cryptdev.ini'
+wait_timeout: 18000 # wait for 5 hous FIXME
+
+# encryption details
+cipher_algorithm: 'aes-xts-plain64'
+keysize: '256'
+hash_algorithm: 'sha256'
+device: '/dev/vdb'
+cryptdev: 'crypt'
+mountpoint: '/export'
+filesystem: 'ext4'
+passphrase_length: '8'
+
+# Hashicorp Vault Integration
+vault_url: ""
+vault_wrapping_token: ""
+vault_secret_path: ""
+vault_secret_key: ""
+
+# luksctl_api variables
+infrastructure_configuration: single_vm
+virtualization_type: '' # If application run on encrypted storage is dockerized, docker needs to be restarted
+node_list: '' # List of IPs of the WNs
+nfs_mountpoint_list: ''

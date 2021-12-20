@@ -1,0 +1,80 @@
+---
+# Prerequisites installation
+
+# CentOS 7
+- block:
+  - name: '[EL] Install prerequisites: master node'
+    yum:
+      name:
+        - cryptsetup-luks
+        - python3
+        - vim
+      state: present
+    when: type_of_node == 'master'
+
+  - name: '[EL] Install prerequisites: worker node'
+    yum:
+      name:
+        - python3
+        - vim
+      state: present
+    when: type_of_node == 'wn'
+
+  when: ansible_os_family == 'RedHat'
+
+
+# Ubuntu
+- block:
+  - name: '[Ubuntu] Install prerequisites: master node'
+    yum:
+      name:
+        - cryptsetup-luks
+        - python3
+        - python3-pip
+        - python3-venv
+        - vim
+      state: present
+    when: type_of_node == 'master'
+
+  - name: '[EL] Install prerequisites: worker node'
+    yum:
+      name:
+        - python3
+        - python3-pip
+        - python3-venv
+        - vim
+      state: present
+    when: type_of_node == 'wn'
+  
+  when: ansible_os_family == 'Debian'
+
+
+# Install pyluks in a virtualenv
+- name: Verify if pyluks is installed
+  stat:
+    path: '{{ pyluks_venv }}'
+  register: pyluks_installed
+
+- block:
+  # pip needs to be upgraded to install the python package cryptography
+  - name: Upgrade pip
+    pip:
+      name: pip
+      version: '{{ pip_version }}'
+      extra_args: --upgrade
+      executable: pip3
+  
+  - name: Create venv
+    pip:
+      name: pip
+      version: '{{ pip_version }}'
+      virtualenv: '{{ pyluks_venv }}'
+      virtualenv_command: python3 -m venv
+  
+  - name: Install pyluks package
+    pip:
+      name: pyluks
+      version: '{{ pyluks_version }}'
+      virtualenv: '{{ pyluks_venv }}'
+  
+  when: not pyluks_installed.stat.exists

@@ -1,0 +1,2 @@
+---
+- include_tasks: "{{ type_of_node }}.yml"

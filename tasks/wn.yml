@@ -1,0 +1,27 @@
+---
+- name: pyluks installation
+  include_tasks: pyluks_installation.yml
+
+- name: 'Create user luksctl_api_wn user'
+  user:
+    name: 'luksctl_api_wn'
+    shell: '/bin/bash'
+    createhome: no
+
+- name: Enable luksctl_api_wn user to mount nfs volumes
+  lineinfile:
+    dest: '/etc/sudoers'
+    line: 'luksctl_api_wn ALL=NOPASSWD:/bin/mount'
+    state: present
+    insertafter: EOF
+
+- name: Configure luksctl_api
+  command: |
+    {{ pyluks_venv }}/bin/luksctl_api wn
+    --nfs-mountpoint-list {{ nfs_mountpoint_list }}
+
+- name: Start and enable luksctl-api-wn
+  service:
+    name: luksctl-api-wn
+    state: started
+    enabled: yes

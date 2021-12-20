@@ -1,0 +1,45 @@
+---
+# Install pyluks
+- name: pyluks installation
+  include_tasks: pyluks_installation.yml
+
+# Run fastluks
+- name: Encrypt storage
+  command:
+    cmd: |
+      {{ pyluks_venv }}/bin/fastluks
+      --device {{ device }}
+      --cryptdev {{ cryptdev }}
+      --mountpoint {{ mountpoint }}
+      --filesystem {{ filesystem }}
+      --cipher {{ cipher_algorithm }}
+      --key-size {{ keysize }}
+      --hash {{ hash_algorithm }}
+      --passphrase-length {{ passphrase_length }}
+      --save-passphrase-locally
+#--vault
+#--vault-url {{ vault_url }}
+#--wrapping-token {{ vault_wrapping_token }}
+#--secret-path {{ vault_secret_path }}
+#--user-key {{ vault_secret_key }}
+    creates:
+      - '{{ luks_config_file }}'
+      - '{{ luks_success_file }}'
+
+# Check encryption outcome
+- name: 'Wait for LUKS success file: {{ luks_success_file }}'
+  wait_for:
+    path: '{{ luks_success_file }}'
+    timeout: '{{ wait_timeout }}'
+    search_regex: "LUKS encryption completed."
+
+- name: 'Wait for volume setup success file: {{ volume_setup_success_file }}'
+  wait_for:
+    path: '{{ volume_setup_success_file }}'
+    timeout: '{{ wait_timeout }}'
+    search_regex: "Volume setup completed."
+
+- name: 'Check {{ luks_config_file }}. If not present something went wrong'
+  wait_for:
+    path: '{{ luks_config_file }}'
+    state: present

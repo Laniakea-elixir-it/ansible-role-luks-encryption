@@ -1,0 +1,20 @@
+---
+# LUKS format external volume
+- name: Verify if luks success file exists
+  stat:
+    path: '{{ luks_success_file }}'
+  register: luks_success_file_created
+
+- name: Verify if cryptdev ini file exists
+  stat:
+    path: '{{ luks_config_file }}'
+  register: luks_config_file_created
+
+- name: fastluks task
+  include_tasks: fastluks.yml
+  when:
+    - not luks_success_file_created.stat.exists
+    - not luks_config_file_created.stat.exists
+
+- name: luksctl_api taks
+  include_tasks: luksctl_api.yml
