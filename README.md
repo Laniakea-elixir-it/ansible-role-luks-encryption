@@ -3,6 +3,7 @@ pyluks-encryption
 
 This role provides storage encryption using LUKS. It exploits the pyluks python package in order to encrypt and manage external volumes.
 
+This role is based on the [indigo-dc.galaxycloud-os](https://github.com/indigo-dc/ansible-role-galaxycloud-os) role.
 
 Role Variables
 --------------
