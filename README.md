@@ -72,7 +72,7 @@ Default configuration (single vm)
 ```yml
 - hosts: servers
   roles:
-    - role: pyluks-encryption
+    - role: dacolombo.luks-encryption
       become: yes
 ```
 
