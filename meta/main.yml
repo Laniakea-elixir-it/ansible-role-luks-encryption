@@ -1,5 +1,4 @@
 galaxy_info:
-  role_name: luks-encryption
   author: Daniele Colombo
   description: Disk encryption with pyluks
   license: Apache-2.0
