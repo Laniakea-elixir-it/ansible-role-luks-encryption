@@ -10,6 +10,8 @@ Role Variables
 
 ``type_of_node``: node type for cluster configuration. master is executed for single VMs and cluster front node. wn is executed on cluster WNs. Default: front
 
+``storage_encryption``: enable/disable storage encryption. Default: true
+
 ### pyluks variables
 ``pyluks_venv``: path for the virtualenv in which pyluks is installed. Default: /opt/pyluks
 
