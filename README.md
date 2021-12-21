@@ -76,6 +76,15 @@ Default configuration (single vm)
       become: yes
 ```
 
+In order to skip the encryptions step:
+```yml
+- hosts: servers
+  roles:
+    - role: dacolombo.luks_encryption
+      become: yes
+      storage_encryption: false
+```
+
 License
 -------
 

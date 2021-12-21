@@ -3,7 +3,7 @@
 # master is executed for single VMs and cluster master node.
 # wn is executed only on cluster WNs
 type_of_node: master
-storage_encryption: True
+storage_encryption: true
 
 # pyluks installation variables
 pyluks_venv: '/opt/pyluks'
