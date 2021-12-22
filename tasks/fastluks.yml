@@ -4,7 +4,7 @@
   include_tasks: pyluks_installation.yml
 
 # Run fastluks
-- name: Encrypt storage
+- name: Encrypt storage ans store it in the config file
   command:
     cmd: |
       {{ pyluks_venv }}/bin/fastluks
@@ -25,6 +25,29 @@
     creates:
       - '{{ luks_config_file }}'
       - '{{ luks_success_file }}'
+  when: store_passphrase == 'locally'
+
+- name: Encrypt storage ans store it on Vault
+  command:
+    cmd: |
+      {{ pyluks_venv }}/bin/fastluks
+      --device {{ device }}
+      --cryptdev {{ cryptdev }}
+      --mountpoint {{ mountpoint }}
+      --filesystem {{ filesystem }}
+      --cipher {{ cipher_algorithm }}
+      --key-size {{ keysize }}
+      --hash {{ hash_algorithm }}
+      --passphrase-length {{ passphrase_length }}
+      --vault
+      --vault-url {{ vault_url }}
+      --wrapping-token {{ vault_wrapping_token }}
+      --secret-path {{ vault_secret_path }}
+      --user-key {{ vault_secret_key }}
+    creates:
+      - '{{ luks_config_file }}'
+      - '{{ luks_success_file }}'
+  when: store_passphrase == 'vault'
 
 # Check encryption outcome
 - name: 'Wait for LUKS success file: {{ luks_success_file }}'
