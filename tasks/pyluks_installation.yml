@@ -8,6 +8,7 @@
       name:
         - cryptsetup-luks
         - python3
+        - python3-virtualenv
         - vim
       state: present
     when: type_of_node == 'master'
@@ -69,7 +70,7 @@
       name: pip
       version: '{{ pip_version }}'
       virtualenv: '{{ pyluks_venv }}'
-      virtualenv_command: python3 -m venv
+      virtualenv_command: python3 -m virtualeenv
   
   - name: Install pyluks package
     pip:
