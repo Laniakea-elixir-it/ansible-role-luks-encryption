@@ -16,5 +16,6 @@
     - not luks_success_file_created.stat.exists
     - not luks_config_file_created.stat.exists
 
-- name: luksctl_api taks
+- name: luksctl_api task
   include_tasks: luksctl_api.yml
+  when: enable_luksctl_api

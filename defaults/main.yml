@@ -35,6 +35,7 @@ vault_secret_path: ""
 vault_secret_key: ""
 
 # luksctl_api variables
+enable_luksctl_api: true
 infrastructure_configuration: single_vm
 virtualization_type: '' # If application run on encrypted storage is dockerized, docker needs to be restarted
 node_list: '' # List of IPs of the WNs
