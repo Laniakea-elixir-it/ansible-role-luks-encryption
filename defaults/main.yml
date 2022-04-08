@@ -26,7 +26,7 @@ device: '/dev/vdb'
 cryptdev: 'crypt'
 mountpoint: '/export'
 filesystem: 'ext4'
-passphrase_length: '8'
+passphrase_length: '100'
 
 # Hashicorp Vault Integration
 vault_url: ""
