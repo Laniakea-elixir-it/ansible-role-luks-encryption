@@ -30,11 +30,10 @@ passphrase_length: '100'
 
 # Hashicorp Vault Integration
 vault_encryption_token: {}
-vault_encryption_secret: {}
 vault_url: '{{ vault_encryption_token.endpoint | default("") }}'
 vault_wrapping_token: '{{ vault_encryption_token.wrapping_token | default("") }}'
-vault_secret_path: '{{ vault_encryption_secret.path | default("") }}'
-vault_secret_key: '{{ vault_encryption_secret.data | default("") }}'
+vault_secret_path: '{{ vault_encryption_path | default("") }}'
+vault_secret_key: '{{ vault_encryption_key | default("") }}'
 
 # luksctl_api variables
 enable_luksctl_api: true
