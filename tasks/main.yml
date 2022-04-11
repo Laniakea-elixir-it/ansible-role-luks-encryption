@@ -2,7 +2,6 @@
 - debug:
     msg:
     - '{{ vault_encryption_token }}'
-    - '{{vault_encryption_secret }}'
     - '{{ vault_url }}'
     - '{{ vault_wrapping_token }}'
     - '{{ vault_secret_path }}'
