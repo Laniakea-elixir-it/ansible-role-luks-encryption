@@ -1,3 +1,15 @@
 ---
+- debug:
+    msg:
+    - '{{ vault_encryption_token }}'
+    - '{{vault_encryption_secret }}'
+    - '{{ vault_url }}'
+    - '{{ vault_wrapping_token }}'
+    - '{{ vault_secret_path }}'
+    - '{{ vault_secret_key }}'
+
+
+
+
 - include_tasks: "{{ type_of_node }}.yml"
   when: storage_encryption
