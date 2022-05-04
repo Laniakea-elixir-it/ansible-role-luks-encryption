@@ -29,12 +29,12 @@
 
 - block:
   # pip needs to be upgraded to install the python package cryptography
-  - name: Upgrade pip
-    pip:
-      name: pip
-      version: '{{ pip_version }}'
-      extra_args: --upgrade
-      executable: pip3
+  #- name: Upgrade pip
+  #  pip:
+  #    name: pip
+  #    version: '{{ pip_version }}'
+  #    extra_args: --upgrade
+  #    executable: pip3
   
   - name: Create venv
     pip:
