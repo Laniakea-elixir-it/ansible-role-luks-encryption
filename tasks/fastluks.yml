@@ -66,3 +66,12 @@
   wait_for:
     path: '{{ luks_config_file }}'
     state: present
+
+- name: "Remove {{ export_dir }} with old device from fstab"
+  lineinfile:
+    dest: /etc/fstab
+    regexp: '{{ export_dir }}'
+    state: absent
+    backup: yes
+  become_user: root
+  become_method: sudo
