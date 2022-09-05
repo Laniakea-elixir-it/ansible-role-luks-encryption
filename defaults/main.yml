@@ -2,12 +2,12 @@
 # Node type for api cluster configuration
 # master is executed for single VMs and cluster master node.
 # wn is executed only on cluster WNs
-type_of_node: master
 storage_encryption: true
 store_passphrase: 'vault'
 
 # pyluks installation variables
 pyluks_venv: '/opt/pyluks'
+pyluks_package_name: 'pyluks' # Set to https://github.com/Laniakea-elixir-it/pyluks/archive/dev.zip for testing dev
 pyluks_version: 0.0.1b
 pip_version: 21.3.1
 
@@ -37,7 +37,6 @@ vault_secret_key: '{{ vault_encryption_key | default("") }}'
 
 # luksctl_api variables
 enable_luksctl_api: true
-infrastructure_configuration: single_vm
-virtualization_type: '' # If application run on encrypted storage is dockerized, docker needs to be restarted
-node_list: '' # List of IPs of the WNs
-nfs_mountpoint_list: ''
+# If application run on encrypted storage is dockerized, docker needs to be added to the list for it to be restarted
+# If the VM with encrypted storage is a master node of a cluster, nfs (or nfs-server) must be added to the list
+daemons: [] 

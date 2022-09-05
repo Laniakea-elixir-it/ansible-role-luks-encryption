@@ -1,0 +1,1 @@
+luksctl_api ALL=NOPASSWD:{{ pyluks_venv }}/bin/luksctl{% for daemon in daemons %},/bin/systemctl stop {{ daemon }},/bin/systemctl start {{ daemon }}{% endfor %}

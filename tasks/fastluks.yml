@@ -1,8 +1,4 @@
 ---
-# Install pyluks
-- name: pyluks installation
-  include_tasks: pyluks_installation.yml
-
 # Run fastluks
 - name: Encrypt storage and store it in the config file
   command:
@@ -17,11 +13,6 @@
       --hash {{ hash_algorithm }}
       --passphrase-length {{ passphrase_length }}
       --save-passphrase-locally
-#--vault
-#--vault-url {{ vault_url }}
-#--wrapping-token {{ vault_wrapping_token }}
-#--secret-path {{ vault_secret_path }}
-#--user-key {{ vault_secret_key }}
     creates:
       - '{{ luks_config_file }}'
       - '{{ luks_success_file }}'

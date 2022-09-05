@@ -10,11 +10,13 @@
     path: '{{ luks_config_file }}'
   register: luks_config_file_created
 
+- name: Install pyluks and dependencies
+  include_tasks: dependencies.yml
+  when: not luks_success_file_created.stat.exists and not luks_config_file_created.stat.exists
+
 - name: fastluks task
   include_tasks: fastluks.yml
-  when:
-    - not luks_success_file_created.stat.exists
-    - not luks_config_file_created.stat.exists
+  when: not luks_success_file_created.stat.exists and not luks_config_file_created.stat.exists
 
 - name: luksctl_api task
   include_tasks: luksctl_api.yml
