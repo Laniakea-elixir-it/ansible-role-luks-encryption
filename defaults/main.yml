@@ -11,6 +11,8 @@ pyluks_package_name: 'pyluks' # Set to https://github.com/Laniakea-elixir-it/pyl
 pyluks_version: 0.0.1b
 pip_version: 21.3.1
 
+export_dir: /export
+
 # fastluks variables
 luks_success_file: '/var/run/fast-luks-encryption.success'
 volume_setup_success_file: '/var/run/fast-luks-volume-setup.success'
