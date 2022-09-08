@@ -3,6 +3,11 @@
 - name: Set OS-sepcific variables
   include_vars: "{{ ansible_os_family }}.yml"
 
+- name: Update apt cache [Ubuntu]
+  apt:
+    update_cache: yes
+  when: ansible_os_family == "Debian"
+
 # Install dependencies
 - name: Install dependencies
   package:
