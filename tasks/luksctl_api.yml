@@ -4,42 +4,16 @@
     name: luksctl_api
     shell: '/bin/bash'
 
-- name: Set luksctl_api user permissions
-  include_tasks: luksctl_api_permissions.yml
+- name: Set luksctl_api user permissions in sudoers
+  template:
+    src: sudoers.d/luksctl_api.j2
+    dest: /etc/sudoers.d/luksctl_api
 
-- name: Verify if luksctl_api is configured
-  stat:
-    path: '/etc/systemd/system/luksctl-api.service'
-  register: service_file_created
-
-- block:
-  - name: Configure luksctl_api for single vm
-    command: |
-      {{ pyluks_venv }}/bin/luksctl_api master
-      --infrastructure-config {{ infrastructure_configuration }}
-      --ssl
-    when: infrastructure_configuration == 'single_vm'
-
-  - name: Configure luksctl_api for cluster
-    command: |
-      {{ pyluks_venv }}/bin/luksctl_api master
-      --infrastructure-config {{ infrastructure_configuration }}
-      --node-list {{ node_list }}
-      --ssl
-    when: infrastructure_configuration == 'cluster'
-
-  - name: Configure luksctl_api for docker
-    command: |
-      {{ pyluks_venv }}/bin/luksctl_api master
-      --infrastructure-config {{ infrastructure_configuration }}
-      --virtualization-type {{ virtualization_type }}
-      --ssl
-    when: virtualization_type == 'docker'
-  
-  when: not service_file_created.stat.exists
+- name: Configure luksctl_api
+  command: "{{ pyluks_venv }}/bin/luksctl_api --ssl --daemons {{ daemons | join(' ') }} --env-path {{ pyluks_venv }}"
 
 - name: Start and enable luksctl_api for master node
   service:
     name: luksctl-api
-    state: started
+    state: reloaded 
     enabled: yes
