@@ -8,7 +8,7 @@ store_passphrase: 'vault'
 # pyluks installation variables
 pyluks_venv: '/opt/pyluks'
 pyluks_package_name: 'pyluks' # Set to https://github.com/Laniakea-elixir-it/pyluks/archive/dev.zip for testing dev
-pyluks_version: 0.0.1b
+pyluks_version: 0.0.1
 pip_version: 21.3.1
 
 export_dir: /export
