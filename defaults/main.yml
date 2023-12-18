@@ -38,7 +38,7 @@ vault_secret_path: '{{ vault_encryption_path | default("") }}'
 vault_secret_key: '{{ vault_encryption_key | default("") }}'
 
 # luksctl_api variables
-enable_luksctl_api: false
+enable_luksctl_api: true
 # If application run on encrypted storage is dockerized, docker needs to be added to the list for it to be restarted
 # If the VM with encrypted storage is a master node of a cluster, nfs (or nfs-server) must be added to the list
 daemons: [] 
